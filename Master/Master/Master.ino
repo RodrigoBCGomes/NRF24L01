@@ -9,7 +9,11 @@ int pinoBotao = 2;                                            //Pino do botão d
 int estadoBotao = 0;                                          //Variável para armazenar o estado
 
 void setup() {
-
+  pinMode(pinoBotao,INPUT_PULLUP);                            //Define o batão como entrada negativa
+  radio.begin();                                              //Inicia o rádio
+  radio.openWritingPipe(endereco);                            //Diz qual endereço o sinal está conversando
+  radio.setPALevel(RF24_PA_HIGH);                             //Frequência alta
+  radio.stopListening();                                      //Diz que ele não precisa ouvir, só enviar
 }
 
 void loop() {
