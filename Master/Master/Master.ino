@@ -3,7 +3,7 @@
 #include <RF24.h>
 
 RF24 radio (9,10);                                            //Criando o rádio
-const byte endereco[6] = "123890"                             //Mesmo endereço so Slave
+const byte endereco[6] = "123890";                            //Mesmo endereço so Slave
 
 int pinoBotao = 2;                                            //Pino do botão do arduino
 int estadoBotao = 0;                                          //Variável para armazenar o estado
@@ -17,5 +17,13 @@ void setup() {
 }
 
 void loop() {
-
+  if(digitalRead(pinoBotao) == HIGH){                         //Se a leitura do pino got HIGH, executa
+    estadoBotao = 1;                                          //Variável recebe valor 1
+    radio.write(&estadoBotao,sizeof(estadoBotao));            //Envia ao receptor os dados
+  }else{                                                      //Senão, executa  
+        if(digitalRead(pinoBotao) == LOW){                    //Se a leitura do pino for igual a LOW, executa
+        estadoBotao = 0;                                      //Variável recebe valor 0
+        radio.write(&estadoBotao,sizeof(estadoBotao));        //Envia ao receptor os dados
+      }
+  }
 }
