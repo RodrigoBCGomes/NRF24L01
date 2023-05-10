@@ -3,7 +3,7 @@
 #include <RF24.h>
 
 RF24 radio(9,10);                                        //Pinos (CE,CSN)
-const byte endereco[6] = "123890"                        //Endereço único por projeto
+const byte endereco[6] = "123890";                       //Endereço único por projeto
 
 int pinoLed = 3;
 int estadoBotao = 1;
@@ -18,5 +18,16 @@ void setup() {
 }
 
 void loop() {
-
+  if(radio.available()){
+    char text[32] = "";
+    radio.read(&estadoBotao,sizeof(estadoBotao));        //Lê o estado que vem do rádio com ponteiros 
+  }
+  if(estadoBotao == 0){
+    digitalWrite(pinoLed ,HIGH);
+  }else{
+    if(estadoBotao == 1){
+      digitalWrite(pinoLed ,LOW);
+    }
+  }
+  delay(5);
 }
